@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="filter">
+        <input type="text" placeholder="Rechecher par nom " [(ngModel)] = "chaineFilter">
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of produits | filter:chaineFilter" [appHighlight]="product.stock"  >
+                <td>{{product.id}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.price | currency: 'MAD'}}</td>
+                <td>{{product.category}}</td>
+                <td>{{product.stock}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="form">
+        <form (ngSubmit)="addProduct()" #formPrduct="ngForm">
+            <input type="text" placeholder="name" required [(ngModel)]="newProduct.name" name="name">
+            <input type="text" placeholder="category" required [(ngModel)]="newProduct.category" name="category">
+            <input type="number" placeholder="price" required [(ngModel)]="newProduct.price" name="napriceme">
+            <input type="number" placeholder="stock" required [(ngModel)]="newProduct.stock" name="stock">
+            <button type="submit" [disabled]="!formPrduct.valid">Add</button>
+        </form>
+    </div>
+</div>
